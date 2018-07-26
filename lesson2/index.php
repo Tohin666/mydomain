@@ -101,12 +101,15 @@ echo '<h2>Task5</h2>';
 echo date('Y');
 
 echo '<h2>Task6</h2>';
-function power(int $val, int $pow, $result = 0): int {
-    $result = $val * $pow;
-    if ($pow > 1) {
-        power($val, $pow - 1);
-    }
-     return $result;
+function power(int $val, int $pow): int {
+    $result = $result ?? $val;
+
+    $val *= $result;
+    return $pow > 1 ? power($val, $pow - 1) : $result;
+//    if ($pow > 1) {
+//        power($val, $pow - 1);
+//    }
+//     return $val;
 
 }
 echo power(2, 3);
