@@ -1,0 +1,12 @@
+table {
+    margin: 100px auto;
+    border-collapse: collapse;
+}
+td {
+    width: 30px;
+    height: 30px;
+    /*border: 2px #777 solid;*/
+}
+.wall {
+    background: #000;
+}
