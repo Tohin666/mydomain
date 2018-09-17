@@ -73,9 +73,10 @@ if ($hour == 0 || ($hour >= 5 && $hour <= 20)) {
 } else {
     $hourString = ' часа ';
 }
-if ($minute % 10 == 0 || ($minute >= 5 && $minute <= 20) || ($minute % 10 >= 5 && $minute % 10 <= 9)) {
+$minute10 = $minute % 10;
+if ($minute10 == 0 || ($minute >= 5 && $minute <= 20) || ($minute10 >= 5 && $minute10 <= 9)) {
     $minuteString = ' минут';
-} elseif ($minute % 10 == 1) {
+} elseif ($minute10 == 1) {
     $minuteString = ' минута';
 } else {
     $minuteString = ' минуты';
