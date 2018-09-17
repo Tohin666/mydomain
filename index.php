@@ -10,7 +10,7 @@
 <?php
 $scanDir = scandir('./');
 echo '<ul>';
-for ($i = 6; $i < count($scanDir); $i++) {
+for ($i = 5; $i < count($scanDir); $i++) {
 echo '<li><a href="' . $scanDir[$i] . '">' . $scanDir[$i] . '</a></li>';
 }
 echo '</ul>';

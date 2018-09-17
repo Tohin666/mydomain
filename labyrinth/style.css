@@ -1,0 +1,42 @@
+table {
+    margin: 100px auto;
+    border-collapse: collapse;
+}
+td {
+    width: 30px;
+    height: 30px;
+    /*border: 2px #777 solid;*/
+}
+.wall {
+    background: #000;
+}
+.man {
+    background: #ff2500;
+}
+
+@-webkit-keyframes color-change-2x {
+    0% {
+        background: #ff2500;
+    }
+    50% {
+        background: #ffffff;
+    }
+    100% {
+        background: #ff2500;
+    }
+}
+@keyframes color-change-2x {
+    0% {
+        background: #ff2500;
+    }
+    50% {
+        background: #ffffff;
+    }
+    100% {
+        background: #ff2500;
+    }
+}
+.blinkingMan {
+    -webkit-animation: color-change-2x 1s linear infinite alternate both;
+    animation: color-change-2x 1s linear infinite alternate both;
+}
