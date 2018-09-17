@@ -29,6 +29,7 @@ const renderer = {
                 if (row === man.manPositionRow && col === man.manPositionCol) {
                     tdClass = 'man';
                 }
+
                 td.classList.add(tdClass);
                 tr.appendChild(td);
             }
@@ -43,18 +44,22 @@ const man = {
     nextStepRow: null,
     nextStepCol: null,
     makeStep() {
+
         this.turnRight();
         for (let i = 1; i <= 4; i++) {
             this.nextStep();
+
             if (game.isWall()) {
                 this.turnLeft();
                 continue;
             }
             break;
         }
+
         this.manPositionRow = this.nextStepRow;
         this.manPositionCol = this.nextStepCol;
         renderer.labyrinthRender(labyrinth.walls);
+        game.isOut();
     },
 
     nextStep() {
@@ -98,15 +103,19 @@ const man = {
 const settings = {
     rowsCount: 10,
     colsCount: 10,
-    speed: 2,
+    speed: 20,
 };
 
 const game = {
     settings,
     labyrinth,
+    timer: null,
+    status: 'stop',
     init() {
         renderer.labyrinthRender(this.labyrinth.walls);
-        let timer = setInterval(() => man.makeStep(), 500);
+        this.status = 'play';
+        this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
+
     },
 
     isWall() {
@@ -114,6 +123,14 @@ const game = {
             return true;
         }
     },
+    isOut() {
+        if (man.manPositionRow === 0) {
+            window.clearInterval(this.timer);
+            this.status = 'stop';
+            const manStyle = document.getElementsByClassName('man');
+            manStyle[0].className = 'blinkingMan';
+        }
+    }
 };
 
 window.onload = game.init();
