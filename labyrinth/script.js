@@ -13,6 +13,27 @@ const labyrinth = {
         [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
         [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
     ],
+    generatelabyrinth(rows, cols) {
+        for (let row = 0; row < rows; row++) {
+
+            for (let col = 0; col < cols; col++) {
+                if (col === 0 || col === cols - 1) {
+                    this.walls[row][col] = 1;
+                } else if (row === 0 || row === rows - 1) {
+                    if (!this.walls[row].includes(0)) {
+                        this.walls[row][col] = Math.round(Math.random());
+                    }
+                } else {
+                    this.walls[row][col] = Math.round(Math.random());
+                }
+
+
+            }
+
+
+        }
+
+    },
 
 };
 
@@ -112,8 +133,10 @@ const game = {
     timer: null,
     status: 'stop',
     init() {
+        labyrinth.generatelabyrinth(this.settings.rowsCount, this.settings.colsCount);
         renderer.labyrinthRender(this.labyrinth.walls);
-        this.status = 'play';
+        this.labyrinth = labyrinth;
+
         this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
 
     },
