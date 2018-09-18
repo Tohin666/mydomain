@@ -60,17 +60,17 @@ const labyrinth = {
 
 
         }
-        let enter = false;
-        for (let i = settings.colsCount - 1; i >= 0; i--) {
-            if (game.labyrinth.walls[settings.rowsCount - 1][i] === 0) {
-                if (enter === false) {
-                    enter = true;
-                } else {
-                    game.labyrinth.walls[settings.rowsCount - 1][i] = 1;
-                }
-
-            }
-        }
+        // let enter = false;
+        // for (let i = settings.colsCount - 1; i >= 0; i--) {
+        //     if (game.labyrinth.walls[settings.rowsCount - 1][i] === 0) {
+        //         if (enter === false) {
+        //             enter = true;
+        //         } else {
+        //             game.labyrinth.walls[settings.rowsCount - 1][i] = 1;
+        //         }
+        //
+        //     }
+        // }
 
     },
 
@@ -124,6 +124,10 @@ const man = {
         this.turnRight();
         for (let i = 1; i <= 4; i++) {
             this.nextStep();
+            if (game.isOut()) {
+                this.nextStepRow = this.manPositionRow;
+                break;
+            }
             if (game.isWall()) {
                 this.turnLeft();
                 continue;
@@ -147,9 +151,9 @@ const man = {
     },
 
     nextStep() {
-        if (game.isOut()) {
-            return;
-        }
+        // if (game.isOut()) {
+        //     return;
+        // }
         this.nextStepRow = this.manPositionRow;
         this.nextStepCol = this.manPositionCol;
         if (this.direction === 'right') {
@@ -204,11 +208,11 @@ const game = {
             labyrinth.generateLabyrinth(this.settings.rowsCount, this.settings.colsCount);
 
             man.manStartPosition();
-
+console.log(this.labyrinth.walls);
 
             if (this.testLabyrinth()) {
-                man.manStartPositionRow = man.manPositionRow;
-                man.manStartPositionCol = man.manPositionCol;
+                man.manPositionRow = man.manStartPositionRow;
+                man.manPositionCol = man.manStartPositionCol;
                 renderer.labyrinthRender(this.labyrinth.walls);
                 this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
                 break;
@@ -219,7 +223,7 @@ const game = {
     },
 
     testLabyrinth() {
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < (this.settings.rowsCount * this.settings.colsCount); i++) {
             man.makeStep();
         }
         return this.test;
@@ -231,7 +235,7 @@ const game = {
         }
     },
     isOut() {
-        if (man.manPositionRow + 1 === this.settings.rowsCount) {
+        if (man.nextStepRow === this.settings.rowsCount || man.nextStepRow === -1) {
             return true;
         }
     },
