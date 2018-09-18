@@ -13,7 +13,7 @@ const labyrinth = {
         [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
         [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
     ],
-    generateLabyrinth(rows, cols) {
+    generateLabyrinth: function (rows, cols) {
         this.walls = [];
         for (let row = 0; row < rows; row++) {
             this.walls[row] = [];
@@ -145,7 +145,10 @@ const man = {
 
         this.manPositionRow = this.nextStepRow;
         this.manPositionCol = this.nextStepCol;
-        renderer.labyrinthRender(labyrinth.walls);
+        if (game.status !== 'generating') {
+            renderer.labyrinthRender(labyrinth.walls);
+        }
+
         game.isEnd();
         console.log(this.manPositionRow, this.manPositionCol)
     },
@@ -192,9 +195,9 @@ const man = {
 };
 
 const settings = {
-    rowsCount: 10,
-    colsCount: 10,
-    speed: 15,
+    rowsCount: 20,
+    colsCount: 20,
+    speed: 10,
 };
 
 const game = {
@@ -204,22 +207,33 @@ const game = {
     status: 'stop',
     test: false,
     init() {
+        document.getElementById('startButton').addEventListener('click', () => this.start());
+        document.getElementById('generateButton').addEventListener('click', () => this.generate());
+
+    },
+
+    start() {
+        this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
+    },
+
+    generate () {
+        this.test = false;
         while (true) {
+            this.status = 'generating';
             labyrinth.generateLabyrinth(this.settings.rowsCount, this.settings.colsCount);
 
             man.manStartPosition();
-console.log(this.labyrinth.walls);
+            console.log(this.labyrinth.walls);
 
             if (this.testLabyrinth()) {
+                // this.status = 'ready';
                 man.manPositionRow = man.manStartPositionRow;
                 man.manPositionCol = man.manStartPositionCol;
                 renderer.labyrinthRender(this.labyrinth.walls);
-                this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
+
                 break;
             }
         }
-
-
     },
 
     testLabyrinth() {
@@ -229,11 +243,20 @@ console.log(this.labyrinth.walls);
         return this.test;
     },
 
+    /**
+     * Checks is there wall on next step.
+     * @returns {boolean} true, if wall exists, otherwise false.
+     */
     isWall() {
         if (this.labyrinth.walls[man.nextStepRow][man.nextStepCol]) {
             return true;
         }
     },
+
+    /**
+     *
+     * @returns {boolean}
+     */
     isOut() {
         if (man.nextStepRow === this.settings.rowsCount || man.nextStepRow === -1) {
             return true;
@@ -242,13 +265,20 @@ console.log(this.labyrinth.walls);
     isEnd() {
         if (man.manPositionRow === 0) {
             window.clearInterval(this.timer);
-            this.status = 'stop';
-            const manStyle = document.getElementsByClassName('man');
-            manStyle[0].className = 'blinkingMan';
+            if (this.status === 'generating') {
+                this.status = 'ready';
+                this.test = true;
+            } else {
+                const manStyle = document.getElementsByClassName('man');
+                manStyle[0].className = 'blinkingMan';
+            }
 
-            this.test = true;
+
+
+
         }
     }
 };
 
+// Initiate game after page is loaded.
 window.onload = game.init();
