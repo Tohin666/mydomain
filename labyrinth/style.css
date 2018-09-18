@@ -10,6 +10,18 @@ td {
     height: 30px;
     /*border: 2px #777 solid;*/
 }
+button {
+    margin-bottom: 10px;
+}
+input {
+    width: 30px;
+}
+div {
+    width: 200px;
+    padding: 15px;
+    margin: 10px auto;
+    background: #d2d2d2;
+}
 .wall {
     background: #000;
 }

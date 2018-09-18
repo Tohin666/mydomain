@@ -52,28 +52,10 @@ const labyrinth = {
                     } else {
                         this.walls[row][col] = Math.round(Math.random());
                     }
-
                 }
-
-
             }
-
-
         }
-        // let enter = false;
-        // for (let i = settings.colsCount - 1; i >= 0; i--) {
-        //     if (game.labyrinth.walls[settings.rowsCount - 1][i] === 0) {
-        //         if (enter === false) {
-        //             enter = true;
-        //         } else {
-        //             game.labyrinth.walls[settings.rowsCount - 1][i] = 1;
-        //         }
-        //
-        //     }
-        // }
-
     },
-
 };
 
 const renderer = {
@@ -87,7 +69,7 @@ const renderer = {
                 const td = document.createElement('td');
                 let tdClass = array[row][col] ? 'wall' : 'empty';
                 if (row === man.manPositionRow && col === man.manPositionCol) {
-                    tdClass = 'man';
+                    tdClass = 'blinkingMan';
                 }
 
                 td.classList.add(tdClass);
@@ -132,14 +114,7 @@ const man = {
                 this.turnLeft();
                 continue;
             }
-            // if (game.isOut()) {
-            //
-            //
-            //     break;
-            // } else if (game.isWall()) {
-            //     this.turnLeft();
-            //     continue;
-            // }
+
             break;
         }
 
@@ -154,9 +129,7 @@ const man = {
     },
 
     nextStep() {
-        // if (game.isOut()) {
-        //     return;
-        // }
+
         this.nextStepRow = this.manPositionRow;
         this.nextStepCol = this.manPositionCol;
         if (this.direction === 'right') {
@@ -195,8 +168,12 @@ const man = {
 };
 
 const settings = {
-    rowsCount: 20,
-    colsCount: 20,
+    rowsCount: null,
+    colsCount: null,
+    minRowsCount: 5,
+    maxRowsCount: 25,
+    minColsCount: 5,
+    maxColsCount: 30,
     speed: 10,
 };
 
@@ -207,16 +184,44 @@ const game = {
     status: 'stop',
     test: false,
     init() {
+        document.getElementById('rowsCount').min = this.settings.minRowsCount;
+        document.getElementById('rowsCount').max = this.settings.maxRowsCount;
+        document.getElementById('colsCount').min = this.settings.minColsCount;
+        document.getElementById('colsCount').max = this.settings.maxColsCount;
+
+        man.manStartPosition();
+        renderer.labyrinthRender(labyrinth.walls);
+
         document.getElementById('startButton').addEventListener('click', () => this.start());
         document.getElementById('generateButton').addEventListener('click', () => this.generate());
 
     },
 
     start() {
+        man.manStartPosition();
         this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
     },
 
     generate () {
+        this.settings.rowsCount = parseInt(document.getElementById('rowsCount').value);
+        this.settings.colsCount = parseInt(document.getElementById('colsCount').value);
+
+        if (this.settings.rowsCount < this.settings.minRowsCount) {
+            this.settings.rowsCount = this.settings.minRowsCount;
+        }
+        if (this.settings.rowsCount > this.settings.maxRowsCount) {
+            this.settings.rowsCount = this.settings.maxRowsCount;
+        }
+        if (this.settings.colsCount < this.settings.minColsCount) {
+            this.settings.colsCount = this.settings.minColsCount;
+        }
+        if (this.settings.colsCount > this.settings.maxColsCount) {
+            this.settings.colsCount = this.settings.maxColsCount;
+        }
+
+        document.getElementById('rowsCount').value = this.settings.rowsCount;
+        document.getElementById('colsCount').value = this.settings.colsCount;
+
         this.test = false;
         while (true) {
             this.status = 'generating';
@@ -254,14 +259,15 @@ const game = {
     },
 
     /**
-     *
-     * @returns {boolean}
+     * Checks if man go out from labyrinth.
+     * @returns {boolean} true, if man go out.
      */
     isOut() {
         if (man.nextStepRow === this.settings.rowsCount || man.nextStepRow === -1) {
             return true;
         }
     },
+
     isEnd() {
         if (man.manPositionRow === 0) {
             window.clearInterval(this.timer);
@@ -269,8 +275,8 @@ const game = {
                 this.status = 'ready';
                 this.test = true;
             } else {
-                const manStyle = document.getElementsByClassName('man');
-                manStyle[0].className = 'blinkingMan';
+                // const manStyle = document.getElementsByClassName('man');
+                // manStyle[0].className = 'blinkingMan';
             }
 
 
