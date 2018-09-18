@@ -13,24 +13,63 @@ const labyrinth = {
         [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
         [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
     ],
-    generatelabyrinth(rows, cols) {
+    generateLabyrinth(rows, cols) {
+        this.walls = [];
         for (let row = 0; row < rows; row++) {
+            this.walls[row] = [];
 
             for (let col = 0; col < cols; col++) {
                 if (col === 0 || col === cols - 1) {
                     this.walls[row][col] = 1;
-                } else if (row === 0 || row === rows - 1) {
-                    if (!this.walls[row].includes(0)) {
-                        this.walls[row][col] = Math.round(Math.random());
+                } else if (row === 0) {
+                    if (this.walls[row].includes(0)) {
+                        this.walls[row][col] = 1;
+                    } else {
+                        this.walls[row][col] = Math.round(Math.random())
                     }
                 } else {
-                    this.walls[row][col] = Math.round(Math.random());
+                    if (this.walls[row - 1][col] === 0) {
+                        if (this.walls[row - 1][col - 1] === 1 && this.walls[row - 1][col + 1] === 1) {
+                            this.walls[row][col] = 0;
+                        } else if (this.walls[row - 1][col - 1] === 1 && this.walls[row - 1][col + 1] === 0) {
+                            if (Math.round(Math.random())) {
+                                this.walls[row][col] = 0;
+                            } else {
+                                this.walls[row][col + 1] = 0;
+                                this.walls[row][col] = 1;
+                            }
+                        } else if (this.walls[row - 1][col + 1] === 1 && this.walls[row - 1][col - 1] === 0) {
+                            if (Math.round(Math.random())) {
+                                this.walls[row][col] = 0;
+                            } else {
+                                this.walls[row][col - 1] = 0;
+                                this.walls[row][col] = 1;
+                            }
+                        } else {
+                            this.walls[row][col] = Math.round(Math.random());
+                        }
+
+                    } else {
+                        this.walls[row][col] = Math.round(Math.random());
+                    }
+
                 }
 
 
             }
 
 
+        }
+        let enter = false;
+        for (let i = settings.colsCount - 1; i >= 0; i--) {
+            if (game.labyrinth.walls[settings.rowsCount - 1][i] === 0) {
+                if (enter === false) {
+                    enter = true;
+                } else {
+                    game.labyrinth.walls[settings.rowsCount - 1][i] = 1;
+                }
+
+            }
         }
 
     },
@@ -52,6 +91,7 @@ const renderer = {
                 }
 
                 td.classList.add(tdClass);
+                td.innerText = array[row][col];
                 tr.appendChild(td);
             }
         }
@@ -59,31 +99,57 @@ const renderer = {
 };
 
 const man = {
-    manPositionRow: 9,
-    manPositionCol: 5,
+    manStartPositionRow: null,
+    manStartPositionCol: null,
+    manPositionRow: null,
+    manPositionCol: null,
     direction: 'up',
     nextStepRow: null,
     nextStepCol: null,
+    manStartPosition() {
+        const lastRow = game.labyrinth.walls.length - 1;
+        this.manStartPositionRow = lastRow;
+        for (let col = game.labyrinth.walls[lastRow].length - 1; col >= 0; col--) {
+            if (game.labyrinth.walls[lastRow][col] === 0) {
+                this.manStartPositionCol = col;
+                break;
+            }
+        }
+        this.manPositionRow = this.manStartPositionRow;
+        this.manPositionCol = this.manStartPositionCol;
+
+    },
     makeStep() {
 
         this.turnRight();
         for (let i = 1; i <= 4; i++) {
             this.nextStep();
-
             if (game.isWall()) {
                 this.turnLeft();
                 continue;
             }
+            // if (game.isOut()) {
+            //
+            //
+            //     break;
+            // } else if (game.isWall()) {
+            //     this.turnLeft();
+            //     continue;
+            // }
             break;
         }
 
         this.manPositionRow = this.nextStepRow;
         this.manPositionCol = this.nextStepCol;
         renderer.labyrinthRender(labyrinth.walls);
-        game.isOut();
+        game.isEnd();
+        console.log(this.manPositionRow, this.manPositionCol)
     },
 
     nextStep() {
+        if (game.isOut()) {
+            return;
+        }
         this.nextStepRow = this.manPositionRow;
         this.nextStepCol = this.manPositionCol;
         if (this.direction === 'right') {
@@ -124,7 +190,7 @@ const man = {
 const settings = {
     rowsCount: 10,
     colsCount: 10,
-    speed: 20,
+    speed: 15,
 };
 
 const game = {
@@ -132,13 +198,31 @@ const game = {
     labyrinth,
     timer: null,
     status: 'stop',
+    test: false,
     init() {
-        labyrinth.generatelabyrinth(this.settings.rowsCount, this.settings.colsCount);
-        renderer.labyrinthRender(this.labyrinth.walls);
-        this.labyrinth = labyrinth;
+        while (true) {
+            labyrinth.generateLabyrinth(this.settings.rowsCount, this.settings.colsCount);
 
-        this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
+            man.manStartPosition();
 
+
+            if (this.testLabyrinth()) {
+                man.manStartPositionRow = man.manPositionRow;
+                man.manStartPositionCol = man.manPositionCol;
+                renderer.labyrinthRender(this.labyrinth.walls);
+                this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
+                break;
+            }
+        }
+
+
+    },
+
+    testLabyrinth() {
+        for (let i = 0; i < 1000; i++) {
+            man.makeStep();
+        }
+        return this.test;
     },
 
     isWall() {
@@ -147,11 +231,18 @@ const game = {
         }
     },
     isOut() {
+        if (man.manPositionRow + 1 === this.settings.rowsCount) {
+            return true;
+        }
+    },
+    isEnd() {
         if (man.manPositionRow === 0) {
             window.clearInterval(this.timer);
             this.status = 'stop';
             const manStyle = document.getElementsByClassName('man');
             manStyle[0].className = 'blinkingMan';
+
+            this.test = true;
         }
     }
 };
