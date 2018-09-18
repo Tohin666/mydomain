@@ -73,7 +73,7 @@ const renderer = {
                 }
 
                 td.classList.add(tdClass);
-                td.innerText = array[row][col];
+                // td.innerText = array[row][col];
                 tr.appendChild(td);
             }
         }
