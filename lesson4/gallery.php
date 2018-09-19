@@ -1,6 +1,6 @@
 <?php
 echo '<div id="gallery" class="gallery">';
-$images = scandir('./img');
+$images = scandir(__DIR__ . '/img');
 for ($i = 2; $i < count($images); $i++) {
     echo '<a href="img/' . $images[$i] . '" target = blank><img src="img/' . $images[$i] . '"></a>';
 }

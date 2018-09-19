@@ -12,7 +12,7 @@
 <?php
 echo '<h1>Lesson4</h1>';
 
-include 'gallery.php';
+include __DIR__ . '/gallery.php';
 ?>
 <form action="" method="post" enctype="multipart/form-data">
     <input type="file" name="loadedImage">
