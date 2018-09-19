@@ -11,24 +11,30 @@
 <body>
 <?php
 echo '<h1>Lesson4</h1>';
-
+include __DIR__ . '/funcImgResize.php';
 include __DIR__ . '/gallery.php';
 ?>
 <form action="" method="post" enctype="multipart/form-data">
     <input type="file" name="loadedImage">
-    <input type="hidden" name="MAX_FILE_SIZE" value="3000000">
+<!--    <input type="hidden" name="MAX_FILE_SIZE" value="3000000">-->
     <h5>Максимальный размер 3МB</h5>
     <input type="submit" value="Загрузить фото">
 
     <?php
     if (isset($_FILES['loadedImage'])) {
-        $uploadDir = './img/';
+        echo '<br>';
+        var_dump($_FILES['loadedImage']);
+        echo '<br>';
+        $uploadDir = __DIR__ . '/img/big/';
         $uploadFile = $uploadDir . basename($_FILES['loadedImage']['name']);
 
         echo '<pre>';
 
-        if (move_uploaded_file($_FILES['loadedImage']['tmp_name'], $uploadFile)) {
+        if (substr($_FILES['loadedImage']['type'], 0, 5) == 'image' &&
+            $_FILES['loadedImage']['size'] <= 3000000 &&
+            move_uploaded_file($_FILES['loadedImage']['tmp_name'], $uploadFile)) {
             echo '<h3>Фото успешно загружено</h3>';
+            img_resize($uploadFile, __DIR__ . '/img/small/' . , )
 
         } else {
             echo '<h3>Невозможно загрузить файл!</h3>';
