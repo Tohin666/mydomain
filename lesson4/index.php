@@ -21,27 +21,40 @@ include __DIR__ . '/gallery.php';
     <input type="submit" value="Загрузить фото">
 
     <?php
-    if (isset($_FILES['loadedImage'])) {
+    if ($_SERVER['REQUEST_METHOD'== 'POST']) {
         echo '<br>';
-        var_dump($_FILES['loadedImage']);
+        var_dump($_SERVER);
         echo '<br>';
-        $uploadDir = __DIR__ . '/img/big/';
-        $uploadFile = $uploadDir . basename($_FILES['loadedImage']['name']);
+        if (isset($_FILES['loadedImage'])) {
+            echo '<br>';
+            var_dump($_FILES['loadedImage']);
+            echo '<br>';
+            $uploadDir = __DIR__ . '/img/big/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir);
+            }
 
-        echo '<pre>';
+            $uploadFile = $uploadDir . basename($_FILES['loadedImage']['name']);
+            if (file_exists($uploadFile)) {
+                $uploadFile = uniqid() . $uploadFile;
+            }
 
-        if (substr($_FILES['loadedImage']['type'], 0, 5) == 'image' &&
-            $_FILES['loadedImage']['size'] <= 3000000 &&
-            move_uploaded_file($_FILES['loadedImage']['tmp_name'], $uploadFile)) {
-            echo '<h3>Фото успешно загружено</h3>';
-            img_resize($uploadFile, __DIR__ . '/img/small/' . , )
+            echo '<pre>';
+
+            if (substr($_FILES['loadedImage']['type'], 0, 5) == 'image' &&
+                $_FILES['loadedImage']['size'] <= 3000000 &&
+                move_uploaded_file($_FILES['loadedImage']['tmp_name'], $uploadFile)) {
+                echo '<h3>Фото успешно загружено</h3>';
+                img_resize($uploadFile, __DIR__ . '/img/small/' . , )
 
         } else {
-            echo '<h3>Невозможно загрузить файл!</h3>';
-        }
+                echo '<h3>Невозможно загрузить файл!</h3>';
+            }
 
-        echo '</pre>';
+            echo '</pre>';
+        }
     }
+
     ?>
 
 </form>
