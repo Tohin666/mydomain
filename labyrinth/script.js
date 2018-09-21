@@ -55,6 +55,18 @@ const labyrinth = {
                 }
             }
         }
+
+        // Закрываем лишние входы в последнем ряду.
+        let isEnter = false; // Будем считать что у нас пока нет входа.
+        for (let col = cols - 2; col > 0; col--) {
+            if (this.walls[rows - 1][col] === 0 && isEnter === false) {
+                isEnter = true;
+            } else {
+                this.walls[rows - 1][col] = 1;
+            }
+
+        }
+
     },
 };
 
@@ -102,13 +114,16 @@ const man = {
 
     },
     makeStep() {
+        this.direction = 'up';
 
         this.turnRight();
         for (let i = 1; i <= 4; i++) {
             this.nextStep();
             if (game.isOut()) {
                 this.nextStepRow = this.manPositionRow;
-                break;
+                this.turnLeft();
+                // break;
+                continue;
             }
             if (game.isWall()) {
                 this.turnLeft();
