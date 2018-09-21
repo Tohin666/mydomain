@@ -1,17 +1,32 @@
 'use strict';
 
 const labyrinth = {
-    walls: [
-        [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-        [1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 0, 1, 0, 1, 0, 1],
-        [1, 0, 0, 0, 1, 1, 0, 1, 0, 1],
-        [1, 0, 1, 1, 1, 1, 0, 1, 1, 1],
-        [1, 0, 1, 0, 0, 1, 0, 0, 0, 1],
-        [1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-        [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+    walls: [],
+    labyrinths: [
+        [
+            [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+            [1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 0, 1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 1, 1, 0, 1, 0, 1],
+            [1, 0, 1, 1, 1, 1, 0, 1, 1, 1],
+            [1, 0, 1, 0, 0, 1, 0, 0, 0, 1],
+            [1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+            [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+        ],
+        [
+            [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+            [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+            [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+            [1, 0, 0, 0, 1, 1, 0, 1, 0, 1],
+            [1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 0, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        ],
     ],
     generateLabyrinth: function (rows, cols) {
         this.walls = [];
@@ -56,7 +71,7 @@ const labyrinth = {
             }
         }
 
-        // Закрываем лишние входы в последнем ряду.
+        // Close redundant entrances in last raw.
         let isEnter = false; // Будем считать что у нас пока нет входа.
         for (let col = cols - 2; col > 0; col--) {
             if (this.walls[rows - 1][col] === 0 && isEnter === false) {
@@ -101,6 +116,7 @@ const man = {
     nextStepRow: null,
     nextStepCol: null,
     manStartPosition() {
+        this.direction = 'up';
         const lastRow = game.labyrinth.walls.length - 1;
         this.manStartPositionRow = lastRow;
         for (let col = game.labyrinth.walls[lastRow].length - 1; col >= 0; col--) {
@@ -114,18 +130,16 @@ const man = {
 
     },
     makeStep() {
-        this.direction = 'up';
+        // this.direction = 'up';
 
         this.turnRight();
-        for (let i = 1; i <= 4; i++) {
+        for (let i = 1; i <= 5; i++) {
             this.nextStep();
-            if (game.isOut()) {
-                this.nextStepRow = this.manPositionRow;
-                this.turnLeft();
-                // break;
-                continue;
-            }
-            if (game.isWall()) {
+            // if (game.isOut()) {
+            //     this.nextStepRow = this.manPositionRow;
+            //     // break;
+            // }
+            if (game.isOut() || game.isWall()) {
                 this.turnLeft();
                 continue;
             }
@@ -204,6 +218,7 @@ const game = {
         document.getElementById('colsCount').min = this.settings.minColsCount;
         document.getElementById('colsCount').max = this.settings.maxColsCount;
 
+        labyrinth.walls = labyrinth.labyrinths[Math.floor(Math.random() * labyrinth.labyrinths.length)].slice();
         man.manStartPosition();
         renderer.labyrinthRender(labyrinth.walls);
 
@@ -217,7 +232,7 @@ const game = {
         this.timer = setInterval(() => man.makeStep(), 1000 / settings.speed);
     },
 
-    generate () {
+    generate() {
         this.settings.rowsCount = parseInt(document.getElementById('rowsCount').value);
         this.settings.colsCount = parseInt(document.getElementById('colsCount').value);
 
@@ -293,8 +308,6 @@ const game = {
                 // const manStyle = document.getElementsByClassName('man');
                 // manStyle[0].className = 'blinkingMan';
             }
-
-
 
 
         }
