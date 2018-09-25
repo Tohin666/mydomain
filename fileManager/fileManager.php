@@ -1,5 +1,5 @@
 <?php
-function displayDirTree($topDir = './', $dirTree = '')
+function displayDirTree($topDir = './')
 {
     $dirsAndFiles = array_filter(scandir($topDir), function ($item) {
         return $item != '.' && $item != '..';
@@ -12,7 +12,7 @@ function displayDirTree($topDir = './', $dirTree = '')
 //        var_dump($dir);
 //        var_dump(displayDirTree($dir));
         if ($dir != (displayDirTree($dir))) {
-            return displayDirTree($dir, $dirTree);
+            return displayDirTree($dir);
         }
     }
 
@@ -21,11 +21,11 @@ function displayDirTree($topDir = './', $dirTree = '')
     });
 
 
-//    $dirTree = '';
+    if (!isset($dirTree)) {$dirTree = '';}
     if ($dirs != [] || $files != []) {
 //        var_dump($dirs);
 //        var_dump($files);
-        $dirTree = '<ul>';
+        $dirTree .= '<ul>';
 
 
         foreach ($dirs as $item) {
