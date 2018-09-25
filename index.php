@@ -1,3 +1,8 @@
+<?php
+$scanDir = array_filter(scandir('./'), function ($item) {
+    return $item != '.git' && $item != '.idea' && $item != '.' && $item != '..' && $item != 'index.php';
+});
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +12,13 @@
 <body>
 <h1>php1-2</h1>
 
-<?php
-$scanDir = scandir('./');
-echo '<ul>';
-for ($i = 5; $i < count($scanDir); $i++) {
-echo '<li><a href="' . $scanDir[$i] . '">' . $scanDir[$i] . '</a></li>';
-}
-echo '</ul>';
-?>
+<ul>
+    <?php foreach ($scanDir as $item): ?>
+
+    <li><a href="<?= $item ?>"><?= $item ?></a></li>
+
+    <?php endforeach; ?>
+</ul>
 
 </body>
 </html>
