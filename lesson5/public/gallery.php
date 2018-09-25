@@ -1,25 +1,23 @@
 <?php
-echo '<div class="gallery">';
+header('Content-type: text/html; charset=utf-8');
+
+include __DIR__ . '/../config/main.php';
+include ENGINE_DIR . 'galleryFunctions.php';
+include ENGINE_DIR . 'files.php';
+include VENDOR_DIR . 'funcImgResize.php';
+
+// Если поступил запрос методом POST, то обрабатываем его.
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // С помощью функции загружаем изображение и создаем его уменьшенную копию.
+    uploadFile(PUBLIC_DIR . 'img/big/', 'loadedImage');
+    // Делаем редирект, чтобы при нажатии на F5 не происходила повторная отправка файла.
+    header('Location: gallery.php');
+    exit; // Завершаем скрипт, чтобы больше ничего не выполнялось после редиректа.
+}
+
+// Возвращаем список изображений для галереи.
+$gallery = getGallery();
+// Создаем галерею из шаблона.
+include TEMPLATES_DIR . 'galleryTemplate.php';
 
 
-require_once('../config/config.php');
-require_once('../engine/db.php');
-
-
-$sqlSelectImages = 'SELECT * FROM images';
-$images = getAssocResult($sqlSelectImages);
-
-
-foreach ($images as $image):
-
-    echo '<a href="img/' . $image['name'] . '" target = blank><img src="img/' . $image['name'] . '"></a>';
-
-endforeach;
-
-
-
-//$images = scandir('./img');
-//for ($i = 2; $i < count($images); $i++) {
-//    echo '<a href="img/' . $images[$i] . '" target = blank><img src="img/' . $images[$i] . '"></a>';
-//}
-//echo '</div>';

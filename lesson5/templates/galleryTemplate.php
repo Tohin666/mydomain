@@ -15,7 +15,7 @@
     <?php foreach ($gallery as $image):
         $bigPictureName = substr_replace($image, '', strrpos($image, '_small'), 6);
         ?>
-        <a href="/photo.php?id=<?= $image['id'] ?>" target=blank><img src="img/small/<?= $image ?>"></a>
+        <a href="img/big/<?= $bigPictureName ?>" target=blank><img src="img/small/<?= $image ?>"></a>
     <?php endforeach; ?>
 </div>
 
