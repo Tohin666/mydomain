@@ -17,6 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Возвращаем список изображений для галереи.
 $gallery = getGallery();
+
+// Сортируем список изображений по количеству просмотров.
+uasort($gallery, function ($a, $b) {
+    $a = $a['view_count'];
+    $b = $b['view_count'];
+    if ($a == $b) {
+        return 0;
+    }
+    return ($a < $b) ? 1 : -1;
+});
+
 // Создаем галерею из шаблона.
 include TEMPLATES_DIR . 'galleryTemplate.php';
 

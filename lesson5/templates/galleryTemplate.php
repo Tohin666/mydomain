@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lesson4</title>
+    <title>Gallery5</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,9 +13,9 @@
 
 <div id="gallery" class="gallery">
     <?php foreach ($gallery as $image):
-        $bigPictureName = substr_replace($image, '', strrpos($image, '_small'), 6);
+//        $bigPictureName = substr_replace($image, '', strrpos($image, '_small'), 6);
         ?>
-        <a href="img/big/<?= $bigPictureName ?>" target=blank><img src="img/small/<?= $image ?>"></a>
+        <a href="photo.php?id=<?= $image['id'] ?>"><img src="<?= $image['url_small'] ?>"></a>
     <?php endforeach; ?>
 </div>
 

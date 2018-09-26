@@ -52,18 +52,19 @@ function uploadFile($uploadDir, $attributeName = 'file')
             }
 
             // Создаем полный путь до уменьшенного изображения.
-            $smallFilenameWithPath = $smallImageDir . $filenameWithoutExtension . '_small' . $fileExtension;
+            $smallFilename = $filenameWithoutExtension . '_small' . $fileExtension;
+            $smallFilenameWithPath = $smallImageDir . $smallFilename;
             // Уменьшаем изображение.
             img_resize($filenameWithPath, $smallFilenameWithPath, 200, 300);
 
-
+            $urlBigDir = 'img/big/' . $filename;
+            $urlSmallDir = 'img/small/' . $smallFilename;
 
             // Отправляем информацию о картике в базу данных.
             $connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
-            var_dump($filenameWithPath, $smallFilenameWithPath);
 
             $sql = "INSERT INTO photos (name, size, url_big, url_small, view_count)
-                    VALUES ('{$filename}', '{$fileSize}', '{$filenameWithPath}', '{$smallFilenameWithPath}', 0)";
+                    VALUES ('{$filename}', '{$fileSize}', '{$urlBigDir}', '{$urlSmallDir}', 0)";
 
             if (!$res = mysqli_query($connect, $sql)) {
                 var_dump(mysqli_error($connect));
