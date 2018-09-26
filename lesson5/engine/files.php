@@ -4,9 +4,12 @@
  * @param string $uploadDir - Путь к директории с изображениями.
  * @param string $attributeName - Имя атрибута загружаемого изображения.
  */
-function uploadFile($uploadDir, $attributeName = 'file') {
+function uploadFile($uploadDir, $attributeName = 'file')
+{
     // Проверяем, есть ли файл с таким атрибутом.
     if (isset($_FILES[$attributeName])) {
+        // Сохраняем размер изображения, чтобы передать в базу данных.
+        $fileSize = $_FILES[$attributeName]['size'];
 
         // Создаем директорию для загрузки, если ее не существует.
         if (!file_exists($uploadDir)) {
@@ -53,9 +56,24 @@ function uploadFile($uploadDir, $attributeName = 'file') {
             // Уменьшаем изображение.
             img_resize($filenameWithPath, $smallFilenameWithPath, 200, 300);
 
+
+
+            // Отправляем информацию о картике в базу данных.
+            $connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
+
+            $sql = "INSERT INTO photos (name, size, url_big, url_small, view_count)
+                    VALUES ('{$filename}', '{$fileSize}', '{$filenameWithPath}', '{$smallFilenameWithPath}', 0)";
+//            $sql = "INSERT INTO photos (name, size, url_big, url_small, view_count)
+//                    VALUES (1, 2, 3, 4, 0)";
+            if (!$res = mysqli_query($connect, $sql)) {
+                var_dump(mysqli_error($connect));
+            }
+
+            mysqli_close($connect);
+
         } // else {
-            // Не знаю пока как реализовать.
-            // echo '<h3>Невозможно загрузить файл!</h3>';
+        // Не знаю пока как реализовать.
+        // echo '<h3>Невозможно загрузить файл!</h3>';
         //}
 
 //        echo '</pre>';

@@ -18,7 +18,6 @@ if ($id = $_GET['id']) {
     var_dump(mysqli_fetch_all($res, MYSQLI_ASSOC));
 };
 
-
-
-
 mysqli_close($connect);
+
+echo '<a href = gallery.php>Галерея</a>';
