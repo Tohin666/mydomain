@@ -60,11 +60,11 @@ function uploadFile($uploadDir, $attributeName = 'file')
 
             // Отправляем информацию о картике в базу данных.
             $connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
+            var_dump($filenameWithPath, $smallFilenameWithPath);
 
             $sql = "INSERT INTO photos (name, size, url_big, url_small, view_count)
                     VALUES ('{$filename}', '{$fileSize}', '{$filenameWithPath}', '{$smallFilenameWithPath}', 0)";
-//            $sql = "INSERT INTO photos (name, size, url_big, url_small, view_count)
-//                    VALUES (1, 2, 3, 4, 0)";
+
             if (!$res = mysqli_query($connect, $sql)) {
                 var_dump(mysqli_error($connect));
             }

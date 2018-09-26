@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Lesson4</h1>
+<h1>Gallery5</h1>
 
 <div id="gallery" class="gallery">
     <?php foreach ($gallery as $image):
