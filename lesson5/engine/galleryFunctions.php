@@ -3,7 +3,7 @@ function getGallery() {
 
     $connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
 
-    $sql = "SELECT * FROM photos";
+    $sql = "SELECT * FROM photos ORDER BY view_count DESC ";
 
     if (!$res = mysqli_query($connect, $sql)) {
         var_dump(mysqli_error($connect));
