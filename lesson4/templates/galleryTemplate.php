@@ -20,8 +20,8 @@
 </div>
 
 <form action="" method="post" enctype="multipart/form-data">
+<!--    <input type="hidden" name="MAX_FILE_SIZE" value="3000000">-->
     <input type="file" name="loadedImage">
-    <!--    <input type="hidden" name="MAX_FILE_SIZE" value="3000000">-->
     <h5>Максимальный размер 3МB</h5>
     <input type="submit" value="Загрузить фото">
 
