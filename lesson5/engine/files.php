@@ -46,7 +46,7 @@ function uploadFile($uploadDir, $attributeName = 'file')
             // echo '<h3>Фото успешно загружено</h3>';
 
             // Создаем папку для уменьшенных копий изображений, если ее не существует.
-            $smallImageDir = PUBLIC_DIR . 'img/small/';
+            $smallImageDir = PUBL_DIR . 'img/small/';
             if (!file_exists($smallImageDir)) {
                 mkdir($smallImageDir);
             }
@@ -61,16 +61,18 @@ function uploadFile($uploadDir, $attributeName = 'file')
             $urlSmallDir = 'img/small/' . $smallFilename;
 
             // Отправляем информацию о картике в базу данных.
-            $connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
-
+//            $connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
+//
             $sql = "INSERT INTO photos (name, size, url_big, url_small, view_count)
                     VALUES ('{$filename}', '{$fileSize}', '{$urlBigDir}', '{$urlSmallDir}', 0)";
-
-            if (!$res = mysqli_query($connect, $sql)) {
-                var_dump(mysqli_error($connect));
-            }
-
-            mysqli_close($connect);
+            executeQuery($sql);
+//
+//            if (!$res = mysqli_query($connect, $sql)) {
+//                var_dump(mysqli_error($connect));
+//            }
+//
+//            mysqli_close($connect);
+            closeConnection();
 
         } // else {
         // Не знаю пока как реализовать.

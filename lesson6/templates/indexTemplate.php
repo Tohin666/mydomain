@@ -8,6 +8,7 @@
     <title>Index</title>
 </head>
 <body>
+<a href="../public/calculator.php">Calculator</a>
 <a href="../public/catalog.php">Catalog</a>
 </body>
 </html>

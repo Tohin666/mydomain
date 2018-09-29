@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tohin
- * Date: 28.09.2018
- * Time: 16:54
- */
+header('Content-type: text/html, charset=utf-8');
+
+include __DIR__ . '/../config/mainConfig.php';
+include ENGINE_DIR . 'dbEngine.php';
+include ENGINE_DIR . 'catalogFunctions.php';
+
+$catalog = getCatalog();
+
+include TEMPLATES_DIR . 'catalogTemplate.php';

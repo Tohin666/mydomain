@@ -1,17 +1,20 @@
 <?php
 function getGallery() {
 
-    $connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
+//    $connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
 
     $sql = "SELECT * FROM photos ORDER BY view_count DESC ";
 
-    if (!$res = mysqli_query($connect, $sql)) {
-        var_dump(mysqli_error($connect));
-    }
 
-    $arrayPhoto = mysqli_fetch_all($res, MYSQLI_ASSOC);
+//    if (!$res = mysqli_query($connect, $sql)) {
+//        var_dump(mysqli_error($connect));
+//    }
 
-    mysqli_close($connect);
+//    $arrayPhoto = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    $arrayPhoto = returnQueryAll($sql);
+
+//    mysqli_close($connect);
+    closeConnection();
 
     return $arrayPhoto;
 }

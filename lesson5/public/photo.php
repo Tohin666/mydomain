@@ -1,30 +1,34 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 include __DIR__ . '/../config/main.php';
+include ENGI_DIR . 'dbEngine.php';
 
-$connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
+//$connect = mysqli_connect('localhost', 'root', '', 'myShopDB');
 
 if ($id = $_GET['id']) {
 
-    $id = (int) mysqli_escape_string($connect, $id);
+//    $id = (int) mysqli_escape_string($connect, $id);
 
-    mysqli_query($connect, "UPDATE photos SET view_count = view_count + 1 WHERE id = {$id}");
+//    mysqli_query($connect, "UPDATE photos SET view_count = view_count + 1 WHERE id = {$id}");
+    executeQuery("UPDATE photos SET view_count = view_count + 1 WHERE id = {$id}");
 
     $sql = "SELECT * FROM photos WHERE id = {$id}";
-    if (!$res = mysqli_query($connect, $sql)) {
-        var_dump(mysqli_error($connect));
-    }
+//    if (!$res = mysqli_query($connect, $sql)) {
+//        var_dump(mysqli_error($connect));
+//    }
 
 //while ($row = mysqli_fetch_assoc($res)) {
 //    var_dump($row);
 //}
 
-    $arrayPhoto = mysqli_fetch_all($res, MYSQLI_ASSOC)[0];
+//    $arrayPhoto = mysqli_fetch_all($res, MYSQLI_ASSOC)[0];
 //    var_dump($arrayPhoto);
+    $arrayPhoto = returnQueryOne($sql);
+    closeConnection();
 
 };
 
-mysqli_close($connect);
+//mysqli_close($connect);
 ?>
 
 <!doctype html>

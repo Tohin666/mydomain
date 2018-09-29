@@ -43,7 +43,7 @@ function uploadFile($uploadDir, $attributeName = 'file') {
             // echo '<h3>Фото успешно загружено</h3>';
 
             // Создаем папку для уменьшенных копий изображений, если ее не существует.
-            $smallImageDir = PUBLIC_DIR . 'img/small/';
+            $smallImageDir = PUBL_DIR . 'img/small/';
             if (!file_exists($smallImageDir)) {
                 mkdir($smallImageDir);
             }
