@@ -9,6 +9,7 @@
 </head>
 <body>
 <a href="../public/calculator.php">Calculator</a>
+<a href="../public/testimonials.php">Testimonials</a>
 <a href="../public/catalog.php">Catalog</a>
 </body>
 </html>
