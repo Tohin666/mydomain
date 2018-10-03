@@ -5,19 +5,18 @@ include __DIR__ . '/../config/mainConfig.php';
 include ENGINE_DIR . 'dbEngine.php';
 include ENGINE_DIR . 'productsFunctions.php';
 include ENGINE_DIR . 'render.php';
+include ENGINE_DIR . 'base.php';
 
 if ($id = $_GET['id']) {
-
-
     $product = getProduct($id);
-
-//    $sql = "SELECT * FROM products WHERE id = {$id}";
-//    $product = returnQueryOne($sql);
-//
-//    closeConnection();
 }
 
+if ($_GET['quantity']) {
+    session_start();
+    $_SESSION['cart'][$_GET['id']] += $_GET['quantity'];
+    redirect("product.php?id={$id}&massage=Товар добавлен в корзину");
+}
 
+$addToCartMassage = $_GET['massage'] ?? '';
 
-//include TEMPLATES_DIR . 'productTemplate.php';
-render('productTemplate', ['product' => $product]);
+render('productTemplate', ['product' => $product, 'addToCartMassage' => $addToCartMassage]);

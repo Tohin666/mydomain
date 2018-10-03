@@ -8,6 +8,7 @@
     <title>Catalog</title>
 </head>
 <body>
+<a href="../public/cart.php">Перейти в корзину</a>
 <div style="display: flex;">
     <?php foreach ($catalog as $product): ?>
 
