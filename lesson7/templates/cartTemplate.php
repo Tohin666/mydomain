@@ -12,7 +12,15 @@
 <h1>Корзина</h1>
 
 <?php
-if ($_SESSION['cart'])
+if ($_SESSION['cart']) {
+    var_dump($_SESSION['cart']);
+    foreach ($_SESSION['cart'] as $product) {
+        echo $product;
+    }
+} else {
+    echo 'Корзина пуста';
+}
+var_dump($cartArray);
 ?>
 
 <table>

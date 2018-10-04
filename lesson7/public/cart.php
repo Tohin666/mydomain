@@ -7,6 +7,8 @@ include ENGINE_DIR . 'productsFunctions.php';
 include ENGINE_DIR . 'render.php';
 include ENGINE_DIR . 'base.php';
 
+session_start();
 
+$cartArray = getCart();
 
-render('cartTemplate', []);
+render('cartTemplate', ['cartArray' => $cartArray]);

@@ -10,9 +10,10 @@
 <body>
 
 <form action="">
-    <input type="text" name="firstNumber">
-    <input type="text" name="secondNumber">
-    <select name="action" id="">
+    <input type="text" name="firstNumber" placeholder="firstNumber">
+    <input type="text" name="secondNumber" placeholder="secondNumber">
+    <select name="action" title="Действие">
+        <option selected disabled>Действие</option>
         <option value="addition">Сложение</option>
         <option value="subtraction">Вычитание</option>
         <option value="multiplication">Умножение</option>
