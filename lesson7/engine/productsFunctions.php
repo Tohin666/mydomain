@@ -10,7 +10,7 @@ function getCatalog()
 function getProduct($id)
 {
     // защита от sql-инъекций
-//    $id = (int)mysqli_escape_string(getConnection(), $id); // ломает корзину
+    $id = (int)mysqli_escape_string(getConnection(), $id);
 
     $sql = "SELECT * FROM products where id = {$id}";
     $product = returnQueryOne($sql);
@@ -18,23 +18,28 @@ function getProduct($id)
     return $product;
 }
 
+function getProducts($ids)
+{
+
+    $sql = "SELECT * FROM products where id IN ({$ids})";
+    $products = returnQueryAll($sql);
+    closeConnection();
+    return $products;
+}
+
 function getCart()
 {
-//    if ($_SESSION['cart']) {
-//        var_dump($_SESSION['cart']);
-    $cartArray = [];
-    foreach ($_SESSION['cart'] as $productID => $quantity) {
-        var_dump($productID, $quantity);
-        $product = getProduct($productID);
-        var_dump($product);
-        $product['quantity'] = $quantity;
-        var_dump($product);
-        $cartArray[] = $product;
-        var_dump($cartArray);
+    $sessionCart = $_SESSION['cart'];
+    if ($sessionCart) {
+        $ids = implode(',', array_keys($sessionCart));
+        $products = getProducts($ids);
+        $cartArray = [];
+        foreach ($products as $product) {
+            $product['quantity'] = $sessionCart[$product['id']];
+            $cartArray[] = $product;
+        }
+        return $cartArray;
+    } else {
+        return null;
     }
-    var_dump($cartArray);
-    return $cartArray;
-//    } else {
-//        echo 'Корзина пуста';
-//    }
 }

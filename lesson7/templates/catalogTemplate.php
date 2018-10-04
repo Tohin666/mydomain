@@ -9,6 +9,7 @@
 </head>
 <body>
 <a href="../public/cart.php">Перейти в корзину</a>
+<a href="../public/account.php">Личный кабинет</a>
 <div style="display: flex;">
     <?php foreach ($catalog as $product): ?>
 
