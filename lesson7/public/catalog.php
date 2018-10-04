@@ -8,5 +8,4 @@ include ENGINE_DIR . 'render.php';
 
 $catalog = getCatalog();
 
-//include TEMPLATES_DIR . 'catalogTemplate.php';
 render('catalogTemplate', ['catalog' => $catalog]);

@@ -8,12 +8,22 @@
     <title>Login</title>
 </head>
 <body>
+
 <h1>Вход в личный кабинет</h1>
-<div><?=$message?></div>
+<div><?= $message ?></div>
 <form action="" method="post">
     <input type="text" name="login" placeholder="Логин">
     <input type="password" name="password" placeholder="Пароль">
-    <input type="submit">
+    <input type="submit" name="button" value="Войти">
 </form>
+
+<h2>Регистрация</h2>
+<form action="" method="post">
+    <input type="text" name="name" placeholder="Имя">
+    <input type="text" name="login" placeholder="Логин">
+    <input type="password" name="password" placeholder="Пароль">
+    <input type="submit" name="button" value="Зарегистрироваться">
+</form>
+
 </body>
 </html>

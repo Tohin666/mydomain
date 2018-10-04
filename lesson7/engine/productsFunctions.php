@@ -20,7 +20,6 @@ function getProduct($id)
 
 function getProducts($ids)
 {
-
     $sql = "SELECT * FROM products where id IN ({$ids})";
     $products = returnQueryAll($sql);
     closeConnection();

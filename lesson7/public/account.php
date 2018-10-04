@@ -9,7 +9,7 @@ include ENGINE_DIR . 'base.php';
 
 session_start();
 
-if(!$user_id = $_SESSION['user_id']){
+if (!$user_id = $_SESSION['user_id']) {
     redirect("login.php");
 }
 

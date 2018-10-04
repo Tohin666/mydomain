@@ -10,12 +10,15 @@ body {
     /*width: 200px;*/
     margin: 10px;
 }
+
 .container {
     /*height: 100%;*/
 }
+
 .big-image {
     height: 600px;
 }
+
 .cartTable td {
     padding: 5px 15px;
 }

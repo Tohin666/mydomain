@@ -26,7 +26,7 @@
 
         <?php foreach ($cartArray as $product):
             $sum = $product['quantity'] * $product['price'];
-        $total += $sum;
+            $total += $sum;
             ?>
             <tr>
                 <td><?= $product['name'] ?></td>
@@ -34,18 +34,18 @@
                 <td><?= $product['price'] ?> руб.</td>
                 <td><?= $sum ?> руб.</td>
                 <td>
-                    <form action=""><input type="submit" value="Удалить" name="<?= $product['id'] ?>"></form></td>
+                    <form action=""><input type="submit" value="Удалить" name="<?= $product['id'] ?>"></form>
+                </td>
             </tr>
-
         <?php endforeach; ?>
     </table>
-<h3>Сумма к оплате: <?= $total ?> руб.</h3>
-<button onclick="alert('Оплата прошла успешно!')">Оплатить</button>
+
+    <h3>Сумма к оплате: <?= $total ?> руб.</h3>
+    <button onclick="alert('Оплата прошла успешно!')">Оплатить</button>
 <?php else:
     echo 'Корзина пуста';
 endif;
 ?>
-
 
 </body>
 </html>
