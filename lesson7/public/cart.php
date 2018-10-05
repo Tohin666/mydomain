@@ -9,7 +9,7 @@ include ENGINE_DIR . 'base.php';
 
 session_start();
 
-if ($_GET) {
+if (count($_GET) != 0) {
     unset($_SESSION['cart'][array_keys($_GET)[0]]);
 }
 
