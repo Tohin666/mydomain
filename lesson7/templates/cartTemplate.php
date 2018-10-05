@@ -41,7 +41,16 @@
     </table>
 
     <h3>Сумма к оплате: <?= $total ?> руб.</h3>
-    <button onclick="alert('Оплата прошла успешно!')">Оплатить</button>
+    <form action=""><input type="submit" value="Заказать" name="button"></form>
+<!--    <button onclick="document.getElementById('orderForm').style.display = 'block'">Заказать</button>-->
+<!--    <br><br>-->
+<!--    <form action="" method="post" style="display: none" id="orderForm">-->
+<!--        <input type="text" name="fio" placeholder="ФИО получателя">-->
+<!--        <input type="text" name="address" placeholder="Адрес доставки">-->
+<!--        <input type="text" name="phone" placeholder="Телефон">-->
+<!--        <input type="submit" value="Оплатить">-->
+<!--    </form>-->
+<!--    --><?//= $message ?>
 <?php else:
     echo 'Корзина пуста';
 endif;

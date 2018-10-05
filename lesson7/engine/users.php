@@ -14,3 +14,8 @@ function registerUser($name, $login, $password)
 {
     return executeQuery("INSERT INTO users (name, login, password) values ('{$name}','{$login}', '{$password}')");
 }
+
+function addUserInfo($fio, $address, $phone)
+{
+    return executeQuery("INSERT INTO users (fio, address, phone) values ('{$fio}','{$address}', '{$phone}')");
+}
