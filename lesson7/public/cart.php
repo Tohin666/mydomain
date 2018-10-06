@@ -6,6 +6,7 @@ include ENGINE_DIR . 'dbEngine.php';
 include ENGINE_DIR . 'productsFunctions.php';
 include ENGINE_DIR . 'render.php';
 include ENGINE_DIR . 'base.php';
+include ENGINE_DIR . 'orders.php';
 
 session_start();
 if (array_values($_GET)[0] == 'Удалить') {
@@ -14,27 +15,10 @@ if (array_values($_GET)[0] == 'Удалить') {
 }
 
 if (array_values($_GET)[0] == 'Заказать') {
+    $_SESSION['order'] = 'create';
 
     redirect("account.php");
 }
-
-//if ($_SERVER['REQUEST_METHOD'] == "POST") {
-//    var_dump($_POST);
-//    $fio = $_POST['fio'];
-//    $address = $_POST['address'];
-//    $phone = $_POST['phone'];
-//
-//    if ($fio && $address && $phone) {
-//        addUserInfo($fio, $address, $phone);
-////        registerUser($name, $login, $password);
-////        $user = getUserByLoginPass($login, $password);
-////        $_SESSION['user_id'] = $user['id'];
-////        redirect("account.php");
-//    } else {
-//        $message = 'Вы что-то забыли ввести...';
-//    }
-//
-//}
 
 $cartArray = getCart();
 

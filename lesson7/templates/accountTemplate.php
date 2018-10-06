@@ -15,5 +15,49 @@
 <h2><?= $user['login'] ?></h2>
 <h3>Привет, <?= $user['name'] ?>!</h3>
 
+<?php if ($createOrder): ?>
+    <h2>Новый заказ</h2>
+    <h3>Состав заказа</h3>
+
+    <table class="cartTable">
+        <tr>
+            <td>Название</td>
+            <td>Количество</td>
+            <td>Цена</td>
+            <td>Сумма</td>
+        </tr>
+
+        <?php
+        $total = null;
+        foreach ($cartArray as $product):
+            $sum = $product['quantity'] * $product['price'];
+            $total += $sum;
+            ?>
+            <tr>
+                <td><?= $product['name'] ?></td>
+                <td><?= $product['quantity'] ?></td>
+                <td><?= $product['price'] ?> руб.</td>
+                <td><?= $sum ?> руб.</td>
+<!--                <td>-->
+<!--                    <form action=""><input type="submit" value="Удалить" name="--><?//= $product['id'] ?><!--"></form>-->
+<!--                </td>-->
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+    <h3>Сумма к оплате: <?= $total ?> руб.</h3>
+
+
+    <form action="" method="post">
+        <input type="text" name="fio" placeholder="ФИО получателя">
+        <input type="text" name="address" placeholder="Адрес доставки">
+        <input type="text" name="phone" placeholder="Телефон">
+        <input type="submit" value="Оплатить">
+    </form>
+    <?= $message ?>
+    <?php
+//    $createOrder = false;
+endif; ?>
+
 </body>
 </html>
