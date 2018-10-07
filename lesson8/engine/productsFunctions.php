@@ -42,3 +42,27 @@ function getCart()
         return null;
     }
 }
+
+function addProductsToOrder($orderID, $productsArray)
+{
+    foreach ($productsArray as $product) {
+        $sql = "INSERT INTO order_list (order_id, product_id, quantity) 
+          VALUES ({$orderID}, {$product['id']}, {$product['quantity']})";
+        executeQuery($sql);
+        closeConnection();
+    }
+}
+
+function createProduct($name, $description, $price, $photo)
+{
+    $sql = "INSERT INTO products (name, description, price, photo) VALUES ('{$name}', '{$description}', {$price}, '{$photo}')";
+    executeQuery($sql);
+    closeConnection();
+}
+
+function deleteProduct($id)
+{
+    $sql = "DELETE FROM products WHERE id = {$id}";
+    executeQuery($sql);
+    closeConnection();
+}

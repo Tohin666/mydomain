@@ -32,17 +32,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if ($fio && $address && $phone) {
 
-        createOrder($userID, $fio, $address, $phone);
-//        var_dump(searchCreatedOrder($userID));
+        $createdOrderID = createOrder($userID, $fio, $address, $phone);
+        addProductsToOrder($createdOrderID, $cartArray);
 
-//        redirect("account.php");
-//        $message = 'Заказ передан в работу';
+        $_SESSION['cart'] = [];
+        $_SESSION['order'] = null;
+
+        redirect("account.php");
+
     } else {
         $message = 'Вы что-то забыли ввести...';
     }
-
 }
 
+$orders = getOrders($userID);
+//var_dump($orders);
 
-render('accountTemplate',
-    ['user' => $user, 'createOrder' => $createOrder, 'message' => $message, 'cartArray' => $cartArray]);
+render(
+    'accountTemplate',
+    [
+        'user' => $user,
+        'createOrder' => $createOrder,
+        'message' => $message,
+        'cartArray' => $cartArray,
+        'orders' => $orders
+    ]
+);

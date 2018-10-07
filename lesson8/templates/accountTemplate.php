@@ -38,15 +38,16 @@
                 <td><?= $product['quantity'] ?></td>
                 <td><?= $product['price'] ?> руб.</td>
                 <td><?= $sum ?> руб.</td>
-<!--                <td>-->
-<!--                    <form action=""><input type="submit" value="Удалить" name="--><?//= $product['id'] ?><!--"></form>-->
-<!--                </td>-->
+                <!--                <td>-->
+                <!--                    <form action=""><input type="submit" value="Удалить" name="-->
+                <? //= $product['id']
+                ?><!--"></form>-->
+                <!--                </td>-->
             </tr>
         <?php endforeach; ?>
     </table>
 
     <h3>Сумма к оплате: <?= $total ?> руб.</h3>
-
 
     <form action="" method="post">
         <input type="text" name="fio" placeholder="ФИО получателя">
@@ -55,8 +56,50 @@
         <input type="submit" value="Оплатить">
     </form>
     <?= $message ?>
-    <?php
-//    $createOrder = false;
+<?php endif; ?>
+
+
+<?php if ($orders): ?>
+    <h2>Заказы:</h2>
+
+    <?php foreach ($orders as $order): ?>
+        <hr>
+        <h3>Заказ №<?= $order['id'] ?></h3>
+        <h4>Статус: <?= $order['status'] ?></h4>
+        <h3>Состав заказа:</h3>
+
+        <table class="cartTable">
+            <tr>
+                <td>Название</td>
+                <td>Количество</td>
+                <td>Цена</td>
+                <td>Сумма</td>
+            </tr>
+
+            <?php
+            $total = null;
+            foreach ($order['products'] as $product):
+                $sum = $product['quantity'] * $product['price'];
+                $total += $sum;
+                ?>
+                <tr>
+                    <td><?= $product['name'] ?></td>
+                    <td><?= $product['quantity'] ?></td>
+                    <td><?= $product['price'] ?> руб.</td>
+                    <td><?= $sum ?> руб.</td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <h3>Сумма заказа: <?= $total ?> руб.</h3>
+
+        <ul>
+            <li>Ф.И.О. получателя: <?= $order['fio'] ?></li>
+            <li>Адрес доставки: <?= $order['address'] ?></li>
+            <li>Телефон: <?= $order['phone'] ?></li>
+        </ul>
+
+    <?php endforeach;
 endif; ?>
 
 </body>

@@ -18,12 +18,20 @@ function executeQuery($sql)
     }
     return $res;
 }
+function executeQueryReturnID($sql)
+{
+    $connection = getConnection();
+    if (!$res = mysqli_query($connection, $sql)) {
+        var_dump(mysqli_error(getConnection()));
+    }
+    $id = mysqli_insert_id($connection);
+    return $id;
+}
 
 function returnQueryAll($sql)
 {
     return mysqli_fetch_all(executeQuery($sql), MYSQLI_ASSOC);
 }
-
 function returnQueryOne($sql)
 {
     return returnQueryAll($sql)[0];

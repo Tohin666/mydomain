@@ -10,8 +10,9 @@
 <body>
 <!--<a href="../public/calculator.php">Calculator</a>-->
 <!--<a href="../public/testimonials.php">Testimonials</a>-->
-<a href="../public/catalog.php">Catalog</a>
-<a href="../public/cart.php">Cart</a>
-<a href="../public/account.php">Account</a>
+<a href="../public/catalog.php">Каталог товаров</a>
+<!--<a href="../public/cart.php">Cart</a>-->
+<!--<a href="../public/account.php">Account</a>-->
+<a href="../public/productLoading.php">Загрузка товаров</a>
 </body>
 </html>
