@@ -32,7 +32,6 @@ INSERT INTO myShopDB.products (id, name, description, price, photo) VALUES (2, '
 INSERT INTO myShopDB.products (id, name, description, price, photo) VALUES (3, 'Trodat 4927', 'Штамп автоматический Trodat 4927 60х40мм пластик', 879.00, 'PR_4927_black_standard.jpg');
 INSERT INTO myShopDB.products (id, name, description, price, photo) VALUES (4, 'Trodat 5215', 'Печать автоматическая Trodat 5215 Д=45мм металл', 1737.00, 'PR_5215_Eco.jpg');
 INSERT INTO myShopDB.products (id, name, description, price, photo) VALUES (5, 'Trodat 46025', 'Печать автоматическая Trodat 46025 с крышкой Д=25мм пластик', 676.00, 'PR_46025_blue_open_closed.jpg');
-INSERT INTO myShopDB.products (id, name, description, price, photo) VALUES (8, '1', '2', 3.00, '1489702320_2.jpg');
 INSERT INTO myShopDB.testimonials (id, name, testimonial) VALUES (1, 'Tohin', 'Это мой первый отзыв');
 INSERT INTO myShopDB.testimonials (id, name, testimonial) VALUES (6, 'User', 'А это мой второй отзыв.');
 INSERT INTO myShopDB.testimonials (id, name, testimonial) VALUES (7, 'Вася', 'Офисный компьютер не просто работает, можно сказать "летает". Если где то и есть тормоза то все упирается в жесткий диск а не процессор. ');

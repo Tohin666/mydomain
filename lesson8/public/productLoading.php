@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = $_POST['description'];
     $price = $_POST['price'];
 
-    $photo = uploadFile(PUBL_DIR . 'img/', 'loadedImage');
+    $photo = uploadFile(PUBLIC_DIR . 'img/', 'loadedImage');
 
     if ($name && $description && $price) {
 
@@ -23,15 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         redirect("productLoading.php");
 
     } else {
-        $massage = 'Вы что-то забыли ввести...';
+        $message = 'Вы что-то забыли ввести...';
     }
 }
 
 
 if (array_values($_GET)[0] == 'Удалить') {
     deleteProduct(array_keys($_GET)[0]);
+    redirect("productLoading.php");
 }
 
 $products = getCatalog();
 
-render('productLoadingTemplate', ['products' => $products, 'massage' => $massage]);
+render('productLoadingTemplate', ['products' => $products, 'message' => $message]);
