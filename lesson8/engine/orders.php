@@ -1,7 +1,7 @@
 <?php
-function createOrder($userID, $fio, $address, $phone)
+function createOrder($userID, $fio, $address, $phone, $sum)
 {
-    $sql = "INSERT INTO orders (user_id, fio, address, phone, status) VALUES ({$userID}, '{$fio}', '{$address}', '{$phone}', 'создан')";
+    $sql = "INSERT INTO orders (user_id, fio, address, phone, status, sum) VALUES ({$userID}, '{$fio}', '{$address}', '{$phone}', 'создан', {$sum})";
     $id = executeQueryReturnID($sql);
     closeConnection();
     return $id;

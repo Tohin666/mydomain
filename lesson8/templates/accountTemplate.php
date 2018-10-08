@@ -27,27 +27,18 @@
             <td>Сумма</td>
         </tr>
 
-        <?php
-        $total = null;
-        foreach ($cartArray as $product):
-            $sum = $product['quantity'] * $product['price'];
-            $total += $sum;
-            ?>
-            <tr>
-                <td><?= $product['name'] ?></td>
-                <td><?= $product['quantity'] ?></td>
-                <td><?= $product['price'] ?> руб.</td>
-                <td><?= $sum ?> руб.</td>
-                <!--                <td>-->
-                <!--                    <form action=""><input type="submit" value="Удалить" name="-->
-                <? //= $product['id']
-                ?><!--"></form>-->
-                <!--                </td>-->
-            </tr>
-        <?php endforeach; ?>
+        <?php foreach ($cartArray as $product):
+            if (gettype($product) == 'array'): ?>
+                <tr>
+                    <td><?= $product['name'] ?></td>
+                    <td><?= $product['quantity'] ?></td>
+                    <td><?= $product['price'] ?> руб.</td>
+                    <td><?= $product['sum'] ?> руб.</td>
+                </tr>
+            <?php endif; endforeach; ?>
     </table>
 
-    <h3>Сумма к оплате: <?= $total ?> руб.</h3>
+    <h3>Сумма к оплате: <?= $cartArray[0] ?> руб.</h3>
 
     <form action="" method="post">
         <input type="text" name="fio" placeholder="ФИО получателя">
@@ -76,22 +67,17 @@
                 <td>Сумма</td>
             </tr>
 
-            <?php
-            $total = null;
-            foreach ($order['products'] as $product):
-                $sum = $product['quantity'] * $product['price'];
-                $total += $sum;
-                ?>
+            <?php foreach ($order['products'] as $product): ?>
                 <tr>
                     <td><?= $product['name'] ?></td>
                     <td><?= $product['quantity'] ?></td>
                     <td><?= $product['price'] ?> руб.</td>
-                    <td><?= $sum ?> руб.</td>
+                    <td><?= $product['sum'] ?> руб.</td>
                 </tr>
             <?php endforeach; ?>
         </table>
 
-        <h3>Сумма заказа: <?= $total ?> руб.</h3>
+        <h3>Сумма заказа: <?= $order['sum'] ?> руб.</h3>
 
         <ul>
             <li>Ф.И.О. получателя: <?= $order['fio'] ?></li>

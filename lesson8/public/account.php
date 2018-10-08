@@ -31,8 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $phone = $_POST['phone'];
 
     if ($fio && $address && $phone) {
+        //Добавил в таблицу сумму заказа $cartArray[0]
+        $createdOrderID = createOrder($userID, $fio, $address, $phone, $cartArray[0]);
 
-        $createdOrderID = createOrder($userID, $fio, $address, $phone);
         addProductsToOrder($createdOrderID, $cartArray);
 
         $_SESSION['cart'] = [];
