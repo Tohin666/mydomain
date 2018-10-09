@@ -2,5 +2,5 @@
 function render($templateName, $params = [])
 {
     extract($params);
-    include TEMPLATES_DIR . "{$templateName}.php";
+    include TEMPLATE_DIR . "{$templateName}.php";
 }

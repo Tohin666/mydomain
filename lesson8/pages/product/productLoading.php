@@ -1,13 +1,8 @@
 <?php
-header('Content-type: text/html, charset=utf-8');
-
-include __DIR__ . '/../config/mainConfig.php';
-include ENGINE_DIR . 'dbEngine.php';
-include ENGINE_DIR . 'productsFunctions.php';
-include ENGINE_DIR . 'render.php';
-include ENGINE_DIR . 'base.php';
-include ENGINE_DIR . 'files.php';
-include VENDOR_DIR . 'funcImgResize.php';
+//header('Content-type: text/html, charset=utf-8');
+//
+//include __DIR__ . '/../config/mainConfig.php';
+//include ENGINE_DIR . 'autoload.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
@@ -20,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         createProduct($name, $description, $price, $photo);
 
-        redirect("productLoading.php");
+        redirect("productLoading");
 
     } else {
         $message = 'Вы что-то забыли ввести...';
@@ -30,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if (array_values($_GET)[0] == 'Удалить') {
     deleteProduct(array_keys($_GET)[0]);
-    redirect("productLoading.php");
+    redirect("productLoading");
 }
 
 $products = getCatalog();

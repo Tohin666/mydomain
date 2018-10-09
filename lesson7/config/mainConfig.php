@@ -1,6 +1,6 @@
 <?php
 define('ROOT_DIR', __DIR__ . '/../');
-define('CONFIG_DIR', ROOT_DIR . 'config/');
-define('ENGINE_DIR', ROOT_DIR . 'engine/');
-define('PUBLIC_DIR', ROOT_DIR . 'public/');
-define('TEMPLATES_DIR', ROOT_DIR . 'templates/');
+define('CONF_DIR', ROOT_DIR . 'config/');
+define('ENGIN_DIR', ROOT_DIR . 'engine/');
+define('PUBL_DIR', ROOT_DIR . 'public/');
+define('TEMPLATE_DIR', ROOT_DIR . 'templates/');

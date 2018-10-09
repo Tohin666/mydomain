@@ -1,20 +1,16 @@
 <?php
-header('Content-type: text/html, charset=utf-8');
 
-include __DIR__ . '/../config/mainConfig.php';
-include ENGINE_DIR . 'dbEngine.php';
-include ENGINE_DIR . 'users.php';
-include ENGINE_DIR . 'render.php';
-include ENGINE_DIR . 'base.php';
-include ENGINE_DIR . 'orders.php';
-include ENGINE_DIR . 'productsFunctions.php';
-
-session_start();
+//header('Content-type: text/html, charset=utf-8');
+//
+//include __DIR__ . '/../config/mainConfig.php';
+//include ENGINE_DIR . 'autoload.php';
+//
+//session_start();
 
 $userID = $_SESSION['user_id'];
 
 if (!$userID) {
-    redirect("login.php");
+    redirect("login");
 }
 
 $user = getUserByID($userID);
@@ -39,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION['cart'] = [];
         $_SESSION['order'] = null;
 
-        redirect("account.php");
+        redirect("index");
 
     } else {
         $message = 'Вы что-то забыли ввести...';

@@ -1,7 +1,7 @@
 <?php
 function getConnection()
 {
-    $config = include CONFIG_DIR . "dbConfig.php";
+    $config = include CONF_DIR . "dbConfig.php";
 //    static $connection = null; // чето не работает...
 //    if (is_null($connection)) {
         $connection = mysqli_connect(
