@@ -24,3 +24,10 @@ function getOrders($userID) {
     closeConnection();
     return $orders;
 }
+
+function deleteOrder($orderID)
+{
+    $sql = "UPDATE orders SET status = 'удален' WHERE id = {$orderID}";
+    executeQuery($sql);
+    closeConnection();
+}

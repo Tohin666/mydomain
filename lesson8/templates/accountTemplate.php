@@ -5,7 +5,7 @@
 <!--    <meta name="viewport"-->
 <!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
 <!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
-<!--    <title>Account--><?//= ' ' . $user['login'] ?><!--</title>-->
+<!--    <title>Account--><? //= ' ' . $user['login'] ?><!--</title>-->
 <!--    <link rel="stylesheet" href="../public/style.css">-->
 <!--</head>-->
 <!--<body>-->
@@ -55,7 +55,7 @@
     <?php foreach ($orders as $order): ?>
         <hr>
         <h3>Заказ №<?= $order['id'] ?></h3>
-        <h4>Статус: <?= $order['status'] ?></h4>
+        <h4 id="orderStatusID<?= $order['id'] ?>">Статус: <?= $order['status'] ?></h4>
         <h3>Состав заказа:</h3>
 
         <table class="cartTable">
@@ -83,6 +83,30 @@
             <li>Адрес доставки: <?= $order['address'] ?></li>
             <li>Телефон: <?= $order['phone'] ?></li>
         </ul>
+
+        <button data-id="<?= $order['id'] ?>" class="deleteOrderButton">Удалить заказ</button>
+
+        <script>
+            $(function () {
+                $(".deleteOrderButton").on('click', function () {
+                    var id = $(this).data('id');
+                    $.ajax({
+                        url: "/lesson8/public/account/deleteOrder",
+                        type: "POST",
+                        data: {
+                            id: id
+                        },
+                        success: function (response) {
+                            response = JSON.parse(response);
+                            if (response.success == 'ok') {
+                                $(response.markOrder).text("Статус: удален")
+
+                            }
+                        }
+                    })
+                })
+            })
+        </script>
 
     <?php endforeach;
 endif; ?>
