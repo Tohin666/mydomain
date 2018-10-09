@@ -4,9 +4,9 @@ function getConnection()
     $config = include CONFIG_DIR . "dbConfig.php";
 //    static $connection = null; // чето не работает...
 //    if (is_null($connection)) {
-        $connection = mysqli_connect(
-            $config['host'], $config['user'], $config['password'], $config['dbName']
-        );
+    $connection = mysqli_connect(
+        $config['host'], $config['user'], $config['password'], $config['dbName']
+    );
 //    }
     return $connection;
 }
@@ -18,6 +18,7 @@ function executeQuery($sql)
     }
     return $res;
 }
+
 function executeQueryReturnID($sql)
 {
     $connection = getConnection();
@@ -32,6 +33,7 @@ function returnQueryAll($sql)
 {
     return mysqli_fetch_all(executeQuery($sql), MYSQLI_ASSOC);
 }
+
 function returnQueryOne($sql)
 {
     return returnQueryAll($sql)[0];

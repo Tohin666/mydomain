@@ -76,7 +76,8 @@ function addProductsToOrder($orderID, $productsArray)
 
 function createProduct($name, $description, $price, $photo)
 {
-    $sql = "INSERT INTO products (name, description, price, photo) VALUES ('{$name}', '{$description}', {$price}, '{$photo}')";
+    $sql = "INSERT INTO products (name, description, price, photo) 
+            VALUES ('{$name}', '{$description}', {$price}, '{$photo}')";
     executeQuery($sql);
     closeConnection();
 }

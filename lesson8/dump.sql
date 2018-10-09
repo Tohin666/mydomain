@@ -19,21 +19,22 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `address` varchar(255) DEFAULT NULL,
   `phone` varchar(50) DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
+  `sum` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orders_users_id_fk` (`user_id`),
   CONSTRAINT `orders_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
--- Dumping data for table myShopDB.orders: ~6 rows (approximately)
+-- Dumping data for table myShopDB.orders: ~7 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`id`, `user_id`, `fio`, `address`, `phone`, `status`) VALUES
-	(13, 1, 'Админ Админович Админов', 'Москва, Кремль', '555-55-55', 'получен'),
-	(14, 1, 'Админ Админович Админов', 'Москва, Кремль', '555-55-55', 'в работе'),
-	(15, 2, 'Юзер Юзерович', 'Санкт-Петербург, ул.Невская', '777-77-77', 'получен'),
-	(16, 2, 'Юзер Юзерович', 'Санкт-Петербург, ул.Невская', '777-77-77', 'получен'),
-	(17, 2, 'Юзер Юзерович', 'Санкт-Петербург, ул.Невская', '777-77-77', 'в работе'),
-	(18, 5, 'Антон Тохин', 'Москва, ул.Невская', '222-22-22', 'создан'),
-	(19, 5, 'Антон Тохин', 'Москва, ул.Невская', '222-22-22', 'создан');
+INSERT INTO `orders` (`id`, `user_id`, `fio`, `address`, `phone`, `status`, `sum`) VALUES
+	(23, 1, 'Админ Админович Админов', 'Москва, Кремль', '555-55-55', 'получен', 9705),
+	(24, 1, 'Админ Админович Админов', 'Москва, Кремль', '555-55-55', 'удален', 5043),
+	(25, 1, 'Админ Админович Админов', 'Москва, ул.Невская', '777-77-77', 'в работе', 2937),
+	(26, 2, 'Юзер Юзерович', 'Санкт-Петербург, ул.Невская', '777-77-77', 'получен', 8685),
+	(27, 2, 'Юзер Юзерович', 'Москва, ул.Невская', '777-77-77', 'в работе', 5380),
+	(28, 5, 'Антон Тохин', 'Санкт-Петербург, ул.Невская', '222-22-22', 'получен', 4306),
+	(29, 5, 'Антон Тохин', 'Москва, ул.Невская', '222-22-22', 'удален', 784);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table myShopDB.order_list
@@ -41,30 +42,30 @@ CREATE TABLE IF NOT EXISTS `order_list` (
   `order_id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
+  `sum` float DEFAULT NULL,
   KEY `order_list_orders_id_fk` (`order_id`),
   CONSTRAINT `order_list_orders_id_fk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table myShopDB.order_list: ~17 rows (approximately)
+-- Dumping data for table myShopDB.order_list: ~16 rows (approximately)
 /*!40000 ALTER TABLE `order_list` DISABLE KEYS */;
-INSERT INTO `order_list` (`order_id`, `product_id`, `quantity`) VALUES
-	(13, 1, 3),
-	(13, 3, 2),
-	(14, 2, 1),
-	(14, 3, 2),
-	(14, 5, 1),
-	(15, 1, 5),
-	(15, 3, 1),
-	(16, 2, 6),
-	(17, 1, 5),
-	(17, 2, 1),
-	(17, 4, 3),
-	(17, 5, 1),
-	(18, 1, 2),
-	(19, 1, 2),
-	(19, 2, 3),
-	(19, 3, 1),
-	(19, 5, 2);
+INSERT INTO `order_list` (`order_id`, `product_id`, `quantity`, `sum`) VALUES
+	(23, 1, 3, 1794),
+	(23, 3, 9, 7911),
+	(24, 2, 1, 784),
+	(24, 3, 1, 879),
+	(24, 5, 5, 3380),
+	(25, 1, 1, 598),
+	(25, 2, 1, 784),
+	(25, 3, 1, 879),
+	(25, 5, 1, 676),
+	(26, 4, 5, 8685),
+	(27, 2, 6, 4704),
+	(27, 5, 1, 676),
+	(28, 1, 2, 1196),
+	(28, 3, 2, 1758),
+	(28, 5, 2, 1352),
+	(29, 2, 1, 784);
 /*!40000 ALTER TABLE `order_list` ENABLE KEYS */;
 
 -- Dumping structure for table myShopDB.photos
@@ -96,9 +97,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   `price` decimal(10,2) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table myShopDB.products: ~6 rows (approximately)
+-- Dumping data for table myShopDB.products: ~5 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `photo`) VALUES
 	(1, 'Trodat 4642', 'Печать автоматическая Trodat 4642 с крышкой Д=40-42мм пластик. Новая оснастка от австрийской фирмы Trodat - лидера мирового штемпельного рынка. Новая печать сочетает в себе все преимущества появившихся раньше штампов, которые уже давно полюбили пользователи. На сегодняшний день аналогов на российском да и мировом рынке штемпельной продукции просто не существует.', 598.00, 'PR_4642_P4_H_red_standard.jpg'),
@@ -133,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table myShopDB.users: ~3 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;

@@ -1,8 +1,4 @@
 <?php
-//header('Content-type: text/html, charset=utf-8');
-//
-//include __DIR__ . '/../config/mainConfig.php';
-//include ENGINE_DIR . 'autoload.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
@@ -21,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $message = 'Вы что-то забыли ввести...';
     }
 }
-
 
 if (array_values($_GET)[0] == 'Удалить') {
     deleteProduct(array_keys($_GET)[0]);

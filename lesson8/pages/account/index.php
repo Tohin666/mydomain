@@ -1,12 +1,5 @@
 <?php
 
-//header('Content-type: text/html, charset=utf-8');
-//
-//include __DIR__ . '/../config/mainConfig.php';
-//include ENGINE_DIR . 'autoload.php';
-//
-//session_start();
-
 $userID = $_SESSION['user_id'];
 
 if (!$userID) {
@@ -43,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 $orders = getOrders($userID);
-//var_dump($orders);
 
 render(
     'accountTemplate',

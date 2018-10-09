@@ -1,9 +1,4 @@
 <?php
-//function render($templateName, $params = [])
-//{
-//    extract($params);
-//    include TEMPLATES_DIR . "{$templateName}.php";
-//}
 
 /**
  * Функция отрисовывает лейаут (хэдер, футер ...), в который помещает нужный шаблон.
@@ -11,12 +6,13 @@
  * @param array $params - массив параметров, которые нужно передать в шаблон.
  * @param bool $useLayout - если не нужен лейаут, то выводит только основное содержимое страницы.
  */
-function render($template, $params = [], $useLayout = true){
+function render($template, $params = [], $useLayout = true)
+{
     // Формируем шаблон основного содержимого страницы.
     $content = renderTemplate($template, $params);
     // Если нужен лейаут, то передаем отрисованный контент шаблона в функции отрисовки лейаута,
     // в противном случае выводим только шаблон.
-    if($useLayout){
+    if ($useLayout) {
         $content = renderTemplate("layout/main", ['content' => $content]);
     }
     echo $content;
@@ -28,7 +24,8 @@ function render($template, $params = [], $useLayout = true){
  * @param array $params - массив параметров, которые нужно передать в шаблон.
  * @return string - возвращает содержимое вывода шаблона в виде строки.
  */
-function renderTemplate($template, $params = []){
+function renderTemplate($template, $params = [])
+{
     // Извлекаем параметры из массива в переменные.
     extract($params);
     // Запускаем буфер, чтобы содержимое пока не выводилось на страницу.
