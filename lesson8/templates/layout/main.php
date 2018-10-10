@@ -11,9 +11,9 @@
 </head>
 <body>
 <div class="header">
-    <a href="http://php1-2/lesson8/public/product">Каталог</a>
+    <a href="http://php1-2/lesson8/public/product/index">Каталог</a>
     <a href="http://php1-2/lesson8/public/account/cart">Корзина</a>
-    <a href="http://php1-2/lesson8/public/account">Личный кабинет</a>
+    <a href="http://php1-2/lesson8/public/account/index">Личный кабинет</a>
     <a href="http://php1-2/lesson8/public/product/productLoading">Загрузка товаров</a>
     <hr>
 </div>
