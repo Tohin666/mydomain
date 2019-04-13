@@ -7,21 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../public/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>Anton Korneev - Lesson8</title>
+    <title>Anton Korneev - PHP2</title>
 </head>
 <body>
-<div class="header">
+<header class="header">
     <a href="http://php1-2/lesson8/public/product/index">Каталог</a>
     <a href="http://php1-2/lesson8/public/account/cart">Корзина</a>
     <a href="http://php1-2/lesson8/public/account/index">Личный кабинет</a>
     <a href="http://php1-2/lesson8/public/product/productLoading">Загрузка товаров</a>
     <hr>
-</div>
+</header>
 <div class="content"><?= $content ?></div>
-<div class="footer">
+<footer class="footer">
     <br>
     <hr>
     &copy; Anton Korneev - Lesson8
-</div>
+</footer>
 </body>
 </html>
